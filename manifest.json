@@ -1,8 +1,7 @@
 {
-    // Comments are accepted in the manifest, even though it is JSON.
     "manifest_version": 3,
-    "name": "Chrome Extension v3 Starter",
-    "description": "A minimal example of a chrome extension using manifest v3",
+    "name": "ChatGPT Anything",
+    "description": "A barebones MVP to build into a templatable extension accellerator",
     "version": "0.0.1",
     "icons": {
         "16": "logo/logo-16.png",
