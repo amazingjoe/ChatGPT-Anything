@@ -2,6 +2,7 @@
 document.getElementById("btn_clipboardcopy").addEventListener("click", function(){
     var prompt = document.getElementById("prompt");
     var entry = prompt.value;
+    var entry = "Add '[[[" + generateGUID() + "]]]\n' before the response and '\n[[[End]]]' at the end of the response.\n\n" + entry; 
     navigator.clipboard.writeText(entry).then(function(){
         console.log("Text copied to clipboard");
     }, function(err){
@@ -33,3 +34,10 @@ document.getElementById("btn_loadinfo").addEventListener("click", function(){
         }
     });
 });
+
+//Generate a static GUID for now
+function generateGUID() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    )
+  }
