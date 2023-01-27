@@ -1,8 +1,10 @@
 // btn_clipboardcopy is the ID of the button. When it is pressed we will copy the input value to the clipboard.
 document.getElementById("btn_clipboardcopy").addEventListener("click", function(){
     var prompt = document.getElementById("prompt");
-    var entry = prompt.value;
-    var entry = "Add '[[[" + generateGUID() + "]]]\n' before the response and '\n[[[End]]]' at the end of the response.\n\n" + entry; 
+    var job = prompt.value;
+    var preprompt = "Add '[[[" + generateGUID() + "]]]\n' before the response and '\n[[[End]]]' at the end of the response.\n\n"; 
+    var template = `Write me a sample coverletter to obtain a ${job} job`
+    var entry = preprompt + template;
     navigator.clipboard.writeText(entry).then(function(){
         console.log("Text copied to clipboard");
     }, function(err){
