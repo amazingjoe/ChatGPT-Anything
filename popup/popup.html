@@ -2,16 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Used for responsiveness, not sure if this is needed for chrome extentions :) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="popup.css">
     <title>Chrome Addon v3: popup</title>
 </head>
 <body>
-    Cover Letter Master <span class="special-text">Enter the name of a job</span> copy to clipboard and paste into ChatGPT.
-    </br>
-    <input type="text" id="prompt" /></br>
-    <button type="button" id="btn_loadinfo">Load</button>
-    <button type="button" id="btn_storeinfo">Save</button>
-    <button type="button" id="btn_clipboardcopy">Copy to Clipboard</button>
+   <div class="app-container">
+        <span class="popup-title">
+            ChatGPT Anything
+        </span>
+        <div class="form-wrap">
+            <div class="input-wrap">
+                <input class="input" type="text" id="prompt" placeholder="Prompt">
+            </div>
+        </div>
+        <button class="form-btn" type="button" id="btn_loadinfo">
+            Load
+        </button>
+        <button class="form-btn" type="button" id="btn_storeinfo">
+            Save
+        </button>
+        <button class="form-btn" type="button" id="btn_clipboardcopy">
+            Copy to Clipboard
+        </button>
+    </div>
     <script src="../content.js"></script>
 </body>
 </html>
+
+<!-- <span class="special-text">Enter the name of a job</span> copy to clipboard and paste into ChatGPT. -->
+

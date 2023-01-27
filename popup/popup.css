@@ -1,11 +1,5 @@
-body {
-    background-color: #222;
-    color: #eee;
-
-    width: 16rem;
-    height: 4rem;
-}
-
-.special-text {
-    color: orange;
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
 }
