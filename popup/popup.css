@@ -21,8 +21,6 @@ body{
 .app-container{
     width: 25rem;
     background: white;
-    border-radius: 0.625rem;
-    box-shadow: 0.625rem 0.625rem 1rem rgba(0,0,0,0.05);
 }
 
 /* popup-title - Centers title and changes font+color */
@@ -81,13 +79,57 @@ body{
   transition: .5s;
 }
 
-.input-wrap input:focus ~ label,
-.input-wrap input:valid ~ label{
+/* Broken, Take a look at the selectors? Could be causing the issues @Ben */
+.input:focus + .input-label,
+.input-label{
   top: -5px;
   color: #2691d9;
 }
-.input-wrap input:focus ~ span::before,
-.input-wrap input:valid ~ span::before{
+.input:focus + .anim-util::before,
+.anim-util::before{
   width: 100%;
 }
 
+
+/* form-btn-1 - Save and Load Buttons, half the size of the Copy button */
+.form-btn-1{
+  width: 49%;
+  height: 50px;
+  margin-bottom: 1rem;
+  border: 1px solid;
+  background: #2691d9;
+  border-radius: 25px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+.form-btn-1:hover{
+  border-color: #2691d9;
+  transition: .5s;
+}
+
+/* form-btn-2 - Copy button, full 100% width */
+.form-btn-2{
+  width: 100%;
+  height: 50px;
+  border: 1px solid;
+  background: #2691d9;
+  border-radius: 25px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+
+.form-btn-2:hover{
+  border-color: #2691d9;
+  transition: .5s;
+}
+
+.form-btn-2{
+    margin-bottom: 1rem;
+}
