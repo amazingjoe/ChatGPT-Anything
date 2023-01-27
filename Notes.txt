@@ -1,0 +1,6 @@
+### DOM Selector for all elements that contain response text
+var responsetext = document.querySelectorAll("[class~=markdown]");
+
+## Example: grab the last response.
+var lastResponse = responsetext[responsetext.length-1].innerText;
+
