@@ -13,7 +13,7 @@
         "default_title": "Chrome Addon v3 Starter",
         "default_popup": "popup/popup.html"
     },
-    "permissions": [],
+    "permissions": ["storage"],
     "host_permissions": [
         "*://*/*"
     ],
@@ -21,7 +21,7 @@
         "service_worker": "service-worker.js"
     },
     "content_scripts": [{
-        "js": ["foreground.js"],
+        "js": ["foreground.js","content.js"],
         "matches": ["https://github.com/*"]
     }]
 }
