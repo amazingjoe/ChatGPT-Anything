@@ -1,5 +1,93 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+
 * {
 	margin: 0px; 
 	padding: 0px; 
 	box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
 }
+
+/* body - Adds slight border around form to hide sharp edges of extention popup */
+body{
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg,#2980b9, #8e44ad);
+    height: 100%;
+    overflow: hidden;
+}
+
+/* app-container - Adds backround to the form with slight border radius */
+.app-container{
+    width: 25rem;
+    background: white;
+    border-radius: 0.625rem;
+    box-shadow: 0.625rem 0.625rem 1rem rgba(0,0,0,0.05);
+}
+
+/* popup-title - Centers title and changes font+color */
+.popup-title{
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid silver;
+}
+
+/* form-warp - Changes box sizing and adds padding left and right */
+.form-wrap{
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+/* input-wrap - Adds underline to input field */
+.input-wrap{
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+
+
+/* input - removes border and background from input feild */
+.input{
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font-size: 16px;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+/* input-label - Label is moved -50% to allow for animation to move out of way when selected */
+.input-label{
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: #adadad;
+  transform: translateY(-50%);
+  font-size: 16px;
+  pointer-events: none;
+  transition: .5s;
+}
+
+/* animation-utilities - Should help with the animation but its broken :) */
+.anim-util::before{
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: .5s;
+}
+
+.input-wrap input:focus ~ label,
+.input-wrap input:valid ~ label{
+  top: -5px;
+  color: #2691d9;
+}
+.input-wrap input:focus ~ span::before,
+.input-wrap input:valid ~ span::before{
+  width: 100%;
+}
+

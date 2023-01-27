@@ -9,23 +9,25 @@
 </head>
 <body>
    <div class="app-container">
-        <span class="popup-title">
+        <h1 class="popup-title">
             ChatGPT Anything
-        </span>
+        </h1>
         <div class="form-wrap">
             <div class="input-wrap">
-                <input class="input" type="text" id="prompt" placeholder="Prompt">
+                <input class="input" type="text" id="prompt">
+                <span class-"anim-uitl"></span>
+                <label class="input-label">Prompt</label>
             </div>
+            <button class="form-btn" type="button" id="btn_loadinfo">
+                Load
+            </button>
+            <button class="form-btn" type="button" id="btn_storeinfo">
+                Save
+            </button>
+            <button class="form-btn" type="button" id="btn_clipboardcopy">
+                Copy to Clipboard
+            </button>
         </div>
-        <button class="form-btn" type="button" id="btn_loadinfo">
-            Load
-        </button>
-        <button class="form-btn" type="button" id="btn_storeinfo">
-            Save
-        </button>
-        <button class="form-btn" type="button" id="btn_clipboardcopy">
-            Copy to Clipboard
-        </button>
     </div>
     <script src="../content.js"></script>
 </body>
