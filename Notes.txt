@@ -6,3 +6,32 @@ var lastResponse = responsetext[responsetext.length-1].innerText;
 
 ## Chrom Storage Dev Info
 https://developer.chrome.com/docs/extensions/reference/storage/
+
+### Old manifest
+{
+    "manifest_version": 3,
+    "name": "ChatGPT Anything",
+    "description": "A barebones MVP to build into a templatable extension accellerator",
+    "version": "0.0.1",
+    "icons": {
+        "16": "logo/logo-16.png",
+        "48": "logo/logo-48.png",
+        "128": "logo/logo-128.png"
+    },
+    "options_page": "settings/settings.html",
+    "action": {
+        "default_title": "Chrome Addon v3 Starter",
+        "default_popup": "popup/popup.html"
+    },
+    "permissions": ["storage","activeTab"],
+    "host_permissions": [
+        "*://*/*"
+    ],
+    "background": {
+        "service_worker": "service-worker.js"
+    },
+    "content_scripts": [{
+        "js": ["foreground.js","content.js"],
+        "matches": ["https://https://chat.openai.com/*"]
+    }]
+}
