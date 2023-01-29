@@ -4,9 +4,6 @@ var responsetext = document.querySelectorAll("[class~=markdown]");
 ## Example: grab the last response.
 var lastResponse = responsetext[responsetext.length-1].innerText;
 
-## Chrom Storage Dev Info
-https://developer.chrome.com/docs/extensions/reference/storage/
-
 ### Old manifest
 {
     "manifest_version": 3,

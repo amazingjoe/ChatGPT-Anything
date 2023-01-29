@@ -5,9 +5,7 @@ document.getElementById("btn_clipboardcopy").addEventListener("click", function(
     console.log("Running clipboard!");
     var prompt = document.getElementById("prompt");
     var job = prompt.value;
-    //var preprompt = "Add '[[[" + generateGUID() + "]]]\n' before the response and '\n[[[End]]]' at the end of the response.\n\n"; 
     var template = `Write me a sample cover letter to obtain a ${job} job`
-    //var entry = preprompt + template;
     var entry = template;
     navigator.clipboard.writeText(entry).then(function(){
         console.log("Text copied to clipboard");
