@@ -1,0 +1,17 @@
+{
+    "title" : "Job Cover Letter Maker",
+    "instructions" : "Enter the information for the fields below",
+    "prompt_fields" : [
+        {
+            "field_type":"text",
+            "field_name":"job_title",
+            "field_label":"Job Title"
+        },
+        {
+            "field_type":"text",
+            "field_name":"name",
+            "field_label":"Candidate Name"
+        }
+    ],
+    "template" : "My name is ${name}. Write me a sample cover letter to obtain a ${job_title} job"
+}

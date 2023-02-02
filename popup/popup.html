@@ -9,14 +9,13 @@
 </head>
 <body>
    <div class="app-container">
-        <h1 class="popup-title">
-            ChatGPT Anything - Job Cover Letter Maker (Enter a Job Title)
-        </h1>
+        <h2 class="popup-title" id="apptitle">
+            ChatGPT Anything - 
+        </h2>
+        <h4 id="appinstructions"></h4>
         <div class="form-wrap">
-            <div class="input-wrap">
-                <input class="input" type="text" id="prompt">
-                <span class-"anim-uitl"></span>
-                <label class="input-label">Prompt</label>
+            <div id="field-wrap">
+                <!-- Placeholder for Dynamically Generated Fields -->
             </div>
             <button class="form-btn-1" type="button" id="btn_loadinfo">
                 Load
@@ -26,10 +25,12 @@
             </button>
             <button class="form-btn-2" type="button" id="btn_clipboardcopy">
                 Copy to Clipboard
-            </button>
+            </button>                
+            
+
         </div>
     </div>
-    <script src="../content.js"></script>
+    <script src="popup.js"></script>
 </body>
 </html>
 
