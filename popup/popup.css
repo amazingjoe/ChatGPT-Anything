@@ -133,3 +133,7 @@ body{
 .form-btn-2{
     margin-bottom: 1rem;
 }
+
+.hideme {
+  display: none;
+}

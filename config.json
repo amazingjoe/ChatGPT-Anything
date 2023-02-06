@@ -13,5 +13,6 @@
             "field_label":"Candidate Name"
         }
     ],
-    "template" : "My name is ${name}. Write me a sample cover letter to obtain a ${job_title} job"
+    "template" : "My name is ${name}. Write me a sample cover letter to obtain a ${job_title} job",
+    "continue" : false
 }

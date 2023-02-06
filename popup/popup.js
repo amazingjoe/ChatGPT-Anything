@@ -23,6 +23,11 @@ fetch('../config.json')
         struct.push(key.field_name);
         createElement(key);
     });
+
+    if (data.continue != false) {
+        var btn_continue = document.getElementById("btn_clipboardcopy2");
+        btn_continue.classList.remove("hideme");
+    }
     // data variable is in JSON format
     payload = data;
   })
@@ -59,23 +64,32 @@ function getDOMValue(key) {
 }
 
 
-// btn_clipboardcopy is the ID of the button. When it is pressed we will copy the input value to the clipboard.
-document.getElementById("btn_clipboardcopy").addEventListener("click", function(){
-    console.log("Running clipboard!");
-    console.log("Template is : " + payload.template);
-    
-    struct.forEach((key) => {
-        values.push({"label":key,"value":getDOMValue(key).value});
-        console.log(key);
-    });
-    
-    var template = interpolate(payload.template,values);
-    var entry = template;
-    navigator.clipboard.writeText(entry).then(function(){
-        console.log("Text copied to clipboard");
-    }, function(err){
-        console.error("Could not copy text: ", err);
-    });
+// btn_clipboardcopy is the ID of the button. When it is pressed we will copy the input value to the clipboard.	
+document.getElementById("btn_clipboardcopy").addEventListener("click", function(){	
+    console.log("Running clipboard!");	
+    console.log("Template is : " + payload.template);	
+    	
+    struct.forEach((key) => {	
+        values.push({"label":key,"value":getDOMValue(key).value});	
+        console.log(key);	
+    });	
+    	
+    var template = interpolate(payload.template,values);	
+    var entry = template;	
+    navigator.clipboard.writeText(entry).then(function(){	
+        alert("Prompt copied to clipboard. Please paste into ChatGPT");	
+    }, function(err){	
+        alert("Could not copy text: ", err);	
+    });	
+});	
+// btn_clipboardcopy2 is the ID of the button. When it is pressed we will copy the continuation value to the clipboard.	
+document.getElementById("btn_clipboardcopy2").addEventListener("click", function(){   	
+    var entry = payload.continue;	
+    navigator.clipboard.writeText(entry).then(function(){	
+        alert("Continuation copied to clipboard. Please paste into ChatGPT");	
+    }, function(err){	
+        alert("Could not copy text: ", err);	
+    });	
 });
 
 // btn_storeinfo is the ID of the button. When it is pressed we will store the input value using chrom.storage.local.
@@ -87,7 +101,7 @@ document.getElementById("btn_storeinfo").addEventListener("click", function(){
     });
     
     chrome.storage.local.set({'datastore': JSON.stringify(values)}, function() {
-        console.log("Value stored is : " + JSON.stringify(values));
+        alert("Data Saved");
       });
 });
 
@@ -99,6 +113,6 @@ document.getElementById("btn_loadinfo").addEventListener("click", function(){
             myElement = getDOMValue(key.label);
             myElement.value = key.value;
         });        
-        console.log("Value currently is " + result.datastore);
+        alert("Data Loaded");
       });
 });
