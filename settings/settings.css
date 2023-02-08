@@ -1,8 +1,89 @@
-body {
-    background-color: #222;
-    color: #eee;
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+
+* {
+	margin: 0px; 
+	padding: 0px; 
+	box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+h4 {
+    width: 100%;
+    text-align:center;
+  }
+
+/* body - Adds slight border around form to hide sharp edges of extention popup */
+body{
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg,#2980b9, #8e44ad);
+    height: 100%;
+    overflow: hidden;
 }
 
-.special-text {
-    color: blue;
+/* input - removes border and background from input feild */
+.input{
+    width: 98%;
+    margin-bottom: 5px;
+    padding: 0px 5px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    background: white;
+    outline: none;
+  }
+  
+  /* input-label - Label is moved -50% to allow for animation to move out of way when selected */
+  .input-label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #adadad;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+  }
+
+  textarea{
+    width: 98%;
+    padding: 0 5px;
+    height: 800px;
+    font-size: 16px;
+    border: none;
+    background: white;
+    outline: none;
+  }
+
+  /* form-warp - Changes box sizing and adds padding left and right */
+.form-wrap{
+    padding: 0 40px;
+    box-sizing: border-box;
 }
+
+/* input-wrap - Adds underline to input field */
+.input-wrap{
+  position: relative;
+  border-bottom: 2px solid #adadad;
+  margin: 30px 0;
+}
+
+/* form-btn-1 - Save and Load Buttons, half the size of the Copy button */
+ #btn_configure{
+    width: 98%;
+    height: 50px;
+    margin-bottom: 1rem;
+    border: 1px solid;
+    background: #2691d9;
+    border-radius: 25px;
+    font-size: 18px;
+    color: #e9f4fb;
+    font-weight: 700;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  #btn_configure:hover{
+    border-color: #2691d9;
+    transition: .5s;
+  }

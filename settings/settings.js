@@ -1,4 +1,4 @@
-payload = ["Key1","Key2"];
+payload = ["Temp Key1","Temp Key2"];
 container = null;
 
 chrome.storage.local.set({'recipes': JSON.stringify(payload)}, function() {
@@ -27,12 +27,7 @@ chrome.storage.local.get(["recipes"]).then((result) => {
         option.value = key;
         option.textContent = key;
         select.appendChild(option);
-        alert(key);
     });
     
     container.appendChild(select);        
 });
-
-function createSelect() {
-
-}

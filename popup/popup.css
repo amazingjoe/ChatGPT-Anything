@@ -90,6 +90,15 @@ body{
   width: 100%;
 }
 
+/* h4 */
+h4 {
+  width: 100%;
+  padding: 0 10%;
+  height: 40px;
+  font-size: 14px; 
+  text-align:center;
+}
+
 
 /* form-btn-1 - Save and Load Buttons, half the size of the Copy button */
 .form-btn-1{
