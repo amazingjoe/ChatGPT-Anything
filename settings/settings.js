@@ -68,8 +68,8 @@ function updateConfig(body) {
   });
 }
 
-chrome.storage.local.set({'recipes': JSON.stringify(payload)}, function() {
-  });
+//chrome.storage.local.set({'recipes': JSON.stringify(payload)}, function() {
+//  });
 
 // Get config.json and populate for viewing/editing
 fetch('../config.json')
@@ -93,7 +93,7 @@ chrome.storage.local.get(["recipes"]).then((result) => {
     option.textContent = "New";
     select.appendChild(option);
 
-    var values = JSON.parse(result.recipes);
+    var values = result.recipes;
     values.forEach((key) => {
         var option = document.createElement('option');
         option.value = key.title;
@@ -113,20 +113,62 @@ chooser.addEventListener('change', function handleChange(event) {
 document.getElementById("btn_configure").addEventListener("click", function(){
   var configbox = document.getElementById("configuration");
   selectedPayload = configbox.value;
-  updateConfig(selectedPayload);
+  saveJSON(selectedPayload);
+
 });
+
+
+/* Function to Save/Add to storage
+  ** Get recipies
+  ** Cycle and match to current key.title
+  ** If value is NEW then add new value to storage
+  ** If found replace value with the key 
+*/
+function saveJSON(jsonpayload) {
+  jptitle = JSON.parse(jsonpayload).title;
+  console.log(jptitle);
+
+  chrome.storage.local.get(["recipes"]).then((result) => {
+    var records = result.recipes;
+    var notfound = true;
+    records.forEach((key,index) => {
+      if(jptitle == key.title) {
+          records[index] = JSON.parse(jsonpayload);
+          notfound = false;
+        }      
+    }); 
+    if (notfound) {
+      records.push(JSON.parse(jsonpayload));
+    }
+
+    chrome.storage.local.set({'recipes': records}, function() {
+      alert("Data Saved");
+    });    
+
+
+    //reclist.push(defaultPayload);
+    console.log(records);
+  });  
+
+}
+
+
+
+
 
 // Update Config Area
 function updateConfigBox(jsonContent) {
   var configbox = document.getElementById("configuration");
-  configbox.innerText = jsonContent;  
+  configbox.innerText = jsonContent;
+
+
 }
 
 // Cycles through the list of saved payloads and selects the payload by name
 function grabJSONPayloadByName(payloadname) {
   console.log("Payload name is : " + payloadname);
     chrome.storage.local.get(["recipes"]).then((result) => {
-      var values = JSON.parse(result.recipes);
+      var values = result.recipes;
       if(payloadname == "New") {
         selectedPayload = JSON.stringify(defaultPayload);
         updateConfigBox(selectedPayload);
