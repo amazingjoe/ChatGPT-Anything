@@ -66,11 +66,10 @@ var selectedPayload = {};
 container = null;
 
 // Get config.json and populate for viewing/editing
-fetch('../config.json')
-  .then(response => response.json())
-  .then(data => {
-    let jsonString = JSON.stringify(data,null,2);
-    updateConfigBox(jsonString);
+chrome.storage.local.get(["config"])
+.then(data => {
+    //let jsonString = JSON.stringify(data.config,null,2);
+    updateConfigBox(data.config);
   })
   .catch(error => console.error(error));
 
@@ -151,34 +150,22 @@ function saveJSON(jsonpayload) {
 
 }
 
-
-
-
-
 // Update Config Area
 function updateConfigBox(jsonContent) {
-  //var configbox = document.getElementById("configuration");
-  //configbox.innerText = jsonContent;
   myCodeMirror.setValue(jsonContent);
-
 }
 
 // Cycles through the list of saved payloads and selects the payload by name
 function grabJSONPayloadByName(payloadname) {
   console.log("Payload name is : " + payloadname);
     chrome.storage.local.get(["recipes"]).then((result) => {
-      var values = result.recipes;
-      if(payloadname == "New") {
-        selectedPayload = JSON.stringify(defaultPayload,null,2);
-        updateConfigBox(selectedPayload);
-      } else {      
+      var values = result.recipes;   
         values.forEach((key) => {
           if(payloadname == key.title) {
               selectedPayload = JSON.stringify(key,null,2);
               updateConfigBox(selectedPayload);
             }
-        });  
-      } 
+        });   
   });  
   
 }
