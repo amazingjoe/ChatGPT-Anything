@@ -13,23 +13,24 @@ function interpolate(template, objarr) {
 }
 
 
-fetch('../config.json')
-  .then(response => response.json())
+//fetch('../config.json')
+  //.then(response => response.json())
+  chrome.storage.local.get(["config"])
   .then(data => {
-    let jsonString = JSON.stringify(data);
-    document.getElementById("apptitle").innerText = document.getElementById("apptitle").innerText + data.title;
-    document.getElementById("appinstructions").innerText = document.getElementById("appinstructions").innerText + data.instructions;
-    data.prompt_fields.forEach((key) => {
+    let jsonString = JSON.parse(data.config);
+    document.getElementById("apptitle").innerText = document.getElementById("apptitle").innerText + jsonString.title;
+    document.getElementById("appinstructions").innerText = document.getElementById("appinstructions").innerText + jsonString.instructions;
+    jsonString.prompt_fields.forEach((key) => {
         struct.push(key.field_name);
         createElement(key);
     });
 
-    if (data.continue != false) {
+    if (jsonString.continue != false) {
         var btn_continue = document.getElementById("btn_clipboardcopy2");
         btn_continue.classList.remove("hideme");
     }
     // data variable is in JSON format
-    payload = data;
+    payload = jsonString;
   })
   .catch(error => console.error(error));
 

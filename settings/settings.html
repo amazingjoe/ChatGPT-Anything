@@ -5,17 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="settings.css">
     <title>Chrome Addon v3: Settings</title>
+    <script src="../lib/codemirror.js"></script>
+    <link rel="stylesheet" href="../lib/codemirror.css">
+    <script src="../lib/javascript.js"></script>  
 </head>
 <body>
     <div>
         <h1>AI Prompt Cookbook</h1>
         <div class="form-wrap">
             <div id="field-wrap">
-                <div id="chooser">
-
-                </div>       
-                <textarea rows = "15" id="configuration" width="1000px"></textarea><br/>
-                <button id="btn_configure" type="button" class="form-btn-1" />Save</button>       
+                <div id="chooser"></div><button id="btn_save" type="button" class="form-btn-1" />Switch</button>   
+                <div id="editor"></div><br/>
+                <button id="btn_configure" type="button" class="form-btn-1" />Add/Update</button>       
             </div>
         </div> 
     </div>
