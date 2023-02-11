@@ -12,9 +12,6 @@ function interpolate(template, objarr) {
     return str;
 }
 
-
-//fetch('../config.json')
-  //.then(response => response.json())
   chrome.storage.local.get(["config"])
   .then(data => {
     let jsonString = JSON.parse(data.config);
