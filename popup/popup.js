@@ -37,11 +37,23 @@ function createElement (datarow) {
     const inputWrap = document.createElement("div");
     inputWrap.classList.add("field");
     
-    const input = document.createElement("input");
-    input.classList.add("input");
-    input.type = datarow.field_type;
-    input.id = datarow.field_name;
+    var input;
+    // If text Input field
+    if (datarow.field_type == "text") {
+        input = document.createElement("input");
+        input.classList.add("input");
+        input.type = datarow.field_type;
+        input.id = datarow.field_name;
+    }
     
+    // If textarea field
+    if (datarow.field_type == "textarea") {
+        input = document.createElement("textarea");
+        input.classList.add("textarea");
+        input.rows = "5";
+        input.id = datarow.field_name;
+    }
+
     const animUtil = document.createElement("span");
     animUtil.classList.add("anim-uitl");
     
