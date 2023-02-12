@@ -3,22 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="settings.css">
-    <title>Chrome Addon v3: Settings</title>
+    <title>API Prompt Cooker</title>
+    <link rel="stylesheet" href="../bulma.min.css">
     <script src="../lib/codemirror.js"></script>
     <link rel="stylesheet" href="../lib/codemirror.css">
     <script src="../lib/javascript.js"></script>  
 </head>
-<body>
-    <div>
-        <h1>AI Prompt Cookbook</h1>
-        <div class="form-wrap">
-            <div id="field-wrap">
-                <div id="chooser"></div><button id="btn_save" type="button" class="form-btn-1" />Switch</button>   
-                <div id="editor"></div><br/>
-                <button id="btn_configure" type="button" class="form-btn-1" />Add/Update</button>       
+<body class="has-background-white">
+    <div class="p-5">
+        <div class="box has-background-warning-light">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-full">
+                        <h1 class="title has-text-centered has-text-danger-dark pt-4">AI Prompt Recipe Book</h1>
+                    </div>
+                </div>
+                <div class="colums">
+                    <div class="column">
+                        <button id="btn_reset" type="button" class="button is-small is-info p-4" />New Prompt</button>
+                        <select id="chooser" class="select is-normal"></select>
+                        <button id="btn_set" type="button" class="button is-small is-link p-4" />Set Template</button>
+                        <button id="btn_delete" type="button" class="button is-small is-danger p-4" />Delete</button>
+                    </div>
+                </div>
+                <div class="colums">
+                    <div class="column">
+                        <div id="editor" class="is-fullwidth"></div>
+                    </div>
+                </div>
+                <div class="colums">
+                    <div class="column">
+                        <button id="btn_configure" type="button" class="button is-success is-large is-responsive is-fullwidth" />Add/Update</button>       
+                    </div>            
+                </div>
+                    
             </div>
-        </div> 
+        </div>
     </div>
     <script src="settings.js"></script>
 </body>

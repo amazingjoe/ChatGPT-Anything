@@ -8,99 +8,59 @@ var myCodeMirror = CodeMirror(mcm, {
   myCodeMirror.setSize(container.clientWidth, container.clientHeight);
 
 defaultPayload = {
-  "title" : "Enter your title here",
-  "instructions" : "Replace with instructions",
-  "template" : "Enter any prompt you want. You can use field values such as ${field1} and ${field2}",
-  "continue" : false,  
-  "prompt_fields" : [
-      {
-          "field_type":"text",
-          "field_name":"field1",
-          "field_label":"Field 1"
-      },
-      {
-          "field_type":"text",
-          "field_name":"field2",
-          "field_label":"Field 2"
-      }
-  ]
+  "continue": false,
+  "instructions": "Replace with instructions",
+  "prompt_fields": [
+    {
+      "field_label": "Field 1",
+      "field_name": "field1",
+      "field_type": "text"
+    },
+    {
+      "field_label": "Field 2",
+      "field_name": "field2",
+      "field_type": "text"
+    }
+  ],
+  "template": "Enter any prompt you want. You can use field values such as ${field1} and ${field2}",
+  "title": "Enter a Title"
 }
-
-payload = [{
-  "title" : "Job Cover Letter Maker",
-  "instructions" : "Enter the information for the fields below",
-  "template" : "My name is ${name}. Write me a sample cover letter to obtain a ${job_title} job",
-  "continue" : false,
-  "prompt_fields" : [
-      {
-          "field_type":"text",
-          "field_name":"job_title",
-          "field_label":"Job Title"
-      },
-      {
-          "field_type":"text",
-          "field_name":"name",
-          "field_label":"Candidate Name"
-      }
-  ]
-},{
-  "title" : "Kids Story Writer",
-  "instructions" : "Enter the information for the fields below",
-  "template" : "Write a kids story titled ${story_name}. Here is a summary: ${about}",
-  "continue" : false,
-  "prompt_fields" : [
-      {
-          "field_type":"text",
-          "field_name":"story_name",
-          "field_label":"Title"
-      },
-      {
-          "field_type":"text",
-          "field_name":"about",
-          "field_label":"What is the story about?"
-      }
-  ]
-}];
 
 var selectedPayload = {};
 container = null;
 
-// Get config.json and populate for viewing/editing
-chrome.storage.local.get(["config"])
-.then(data => {
-    //let jsonString = JSON.stringify(data.config,null,2);
-    updateConfigBox(data.config);
-  })
-  .catch(error => console.error(error));
+const chooser = document.getElementById("chooser");
 
-// Create Select box from localStorage
-chrome.storage.local.get(["recipes"]).then((result) => {
-    container = document.getElementById("chooser");
-    const select = document.createElement('select');
-    select.id = "mySelect";
-    
-    document.body.appendChild(select);
-    // Add default value for new
-    var option = document.createElement('option');
-    option.value = "New";
-    option.textContent = "New";
-    select.appendChild(option);
+chooser.addEventListener('change', function handleChange(event) {
+grabJSONPayloadByName(event.target.value);
+});
 
+function getDefaultConfigValue() {
+  return chrome.storage.local.get(["config"])
+    .then(data => {
+      const myTitle = JSON.parse(data.config).title;
+      console.log("Inner Title: " + myTitle);
+      return myTitle;
+    })
+    .catch(error => console.error(error));
+}
+
+
+getDefaultConfigValue().then(myTitle => {
+  // Create Select box from localStorage
+  chrome.storage.local.get(["recipes"]).then((result) => {
+    console.log("value: " + myTitle);
     var values = result.recipes;
     values.forEach((key) => {
         var option = document.createElement('option');
         option.value = key.title;
         option.textContent = key.title;
-        select.appendChild(option);
+        if (key.title == myTitle)
+          option.selected = true;
+        chooser.appendChild(option);
     });
-    
-    container.appendChild(select);        
-});
-
-const chooser = document.getElementById("chooser");
-
-chooser.addEventListener('change', function handleChange(event) {
-  grabJSONPayloadByName(event.target.value);
+    chooser.dispatchEvent(new Event("change"));
+  });
 });
 
 document.getElementById("btn_configure").addEventListener("click", function(){
@@ -108,11 +68,21 @@ document.getElementById("btn_configure").addEventListener("click", function(){
   saveJSON(selectedPayload);
 });
 
-document.getElementById("btn_save").addEventListener("click", function(){
+document.getElementById("btn_set").addEventListener("click", function(){
   selectedPayload = myCodeMirror.getValue();
   chrome.storage.local.set({'config': selectedPayload}, function() {
     alert("Configuration Updated");
   });    
+});
+
+document.getElementById("btn_delete").addEventListener("click", function(){
+  selectedPayload = myCodeMirror.getValue();
+  deleteJSON(selectedPayload);
+});
+
+document.getElementById("btn_reset").addEventListener("click", function(){
+  chooser.value="Enter a Title";
+  chooser.dispatchEvent(new Event("change"));
 });
 
 
@@ -143,8 +113,28 @@ function saveJSON(jsonpayload) {
       alert("Data Saved");
     });    
 
+    console.log(records);
+  });  
 
-    //reclist.push(defaultPayload);
+}
+
+function deleteJSON(jsonpayload) {
+  jptitle = JSON.parse(jsonpayload).title;
+  console.log(jptitle);
+
+  chrome.storage.local.get(["recipes"]).then((result) => {
+    var records = result.recipes;
+    var notfound = true;
+    records.forEach((key,index) => {
+      if(jptitle == key.title && key.title != "Enter a Title") {
+          records.splice(index, 1);
+        }      
+    }); 
+
+    chrome.storage.local.set({'recipes': records}, function() {
+      alert("Recipe Deleted");
+    });    
+
     console.log(records);
   });  
 
