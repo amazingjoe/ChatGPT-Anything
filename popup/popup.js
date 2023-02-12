@@ -23,6 +23,7 @@ function interpolate(template, objarr) {
     });
 
     if (jsonString.continue != false) {
+        console.log("JSON CONTINUE IS : " + jsonString.continue)
         var btn_continue = document.getElementById("btn_clipboardcopy2");
         btn_continue.classList.remove("hideme");
     }
@@ -34,7 +35,7 @@ function interpolate(template, objarr) {
 function createElement (datarow) {
 
     const inputWrap = document.createElement("div");
-    inputWrap.classList.add("input-wrap");
+    inputWrap.classList.add("field");
     
     const input = document.createElement("input");
     input.classList.add("input");
@@ -45,12 +46,13 @@ function createElement (datarow) {
     animUtil.classList.add("anim-uitl");
     
     const inputLabel = document.createElement("label");
-    inputLabel.classList.add("input-label");
+    inputLabel.classList.add("label");
     inputLabel.innerText = datarow.field_label;
     
+    inputWrap.appendChild(inputLabel);
     inputWrap.appendChild(input);
     inputWrap.appendChild(animUtil);
-    inputWrap.appendChild(inputLabel);
+    
 
     var app = document.getElementById("field-wrap");
     app.appendChild(inputWrap);

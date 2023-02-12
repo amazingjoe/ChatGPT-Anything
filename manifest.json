@@ -11,7 +11,9 @@
     "options_page": "settings/settings.html",
     "action": {
         "default_title": "Chrome Addon v3 Starter",
-        "default_popup": "popup/popup.html"
+        "default_popup": "popup/popup.html",
+        "default_width": 800,
+        "default_height" : 600
     },
     "permissions": ["storage","activeTab"],
     "host_permissions": [
