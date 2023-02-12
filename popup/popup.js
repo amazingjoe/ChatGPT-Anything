@@ -38,11 +38,11 @@ function interpolate(template, objarr) {
 function createElement (datarow) {
 
     const inputWrap = document.createElement("div");
-    inputWrap.classList.add("field");
     
     var input;
     // If text Input field
     if (datarow.field_type == "text") {
+        inputWrap.classList.add("field");
         input = document.createElement("input");
         input.classList.add("input");
         input.type = datarow.field_type;
@@ -51,11 +51,25 @@ function createElement (datarow) {
     
     // If textarea field
     if (datarow.field_type == "textarea") {
+        inputWrap.classList.add("field");
         input = document.createElement("textarea");
         input.classList.add("textarea");
         input.rows = "5";
         input.id = datarow.field_name;
     }
+
+    // If select field
+    if (datarow.field_type == "select") {
+        inputWrap.classList.add("select");
+        input = document.createElement("select");
+        input.id = datarow.field_name;
+        datarow.field_choices.forEach((key) => {
+            option = document.createElement("option");
+            option.innerText = key;
+            input.appendChild(option);
+        });
+
+    }    
 
     const animUtil = document.createElement("span");
     animUtil.classList.add("anim-uitl");
