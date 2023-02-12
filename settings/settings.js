@@ -1,3 +1,7 @@
+// ToDos
+// * Add Instructions (popup for how to create the template)
+
+
 // Initialize CodeMirror DOM Element
 const mcm = document.getElementById("editor");
 var myCodeMirror = CodeMirror(mcm, {
