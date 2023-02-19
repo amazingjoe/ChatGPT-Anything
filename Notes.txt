@@ -3,3 +3,23 @@ var responsetext = document.querySelectorAll("[class~=markdown]");
 
 ## Example: grab the last response.
 var lastResponse = responsetext[responsetext.length-1].innerText;
+
+// Clear all values in chrome.storage.local
+chrome.storage.local.clear(function() {
+  console.log("All values cleared");
+});
+
+// Get all items in chrome.storage.local
+chrome.storage.local.get(null, function(items) {
+  console.log(items);
+});
+
+// Set an item in chrome.storage.local
+chrome.storage.local.set({foo: "bar"}, function() {
+  console.log("Item saved");
+});
+
+// Remove an item in chrome.storage.local
+chrome.storage.local.remove("foo", function() {
+  console.log("Item removed");
+});

@@ -4,6 +4,32 @@
 var payload = {};
 var struct = [];
 var values = [];
+var jsonString;
+
+defaultPayload = {
+    "continue": false,
+    "instructions": "Replace with your instructions",
+    "prompt_fields": [
+      {
+        "field_label": "Story Summary",
+        "field_name": "summary",
+        "field_type": "textarea"
+      },
+      {
+        "field_label": "Main Chracters Name",
+        "field_name": "name",
+        "field_type": "text"
+      },
+      {
+        "field_label": "Genre of Story",
+        "field_name": "genre",
+        "field_type": "select",
+        "field_choices": ["Fairy Tale", "Mystery", "Horror", "Contemporary Fiction"]
+      }
+    ],
+    "template": "This is a generic prompt to be replaced. Tell me about a story about ${summary}. The main characters name is ${name}. The Genre of the Story is ${genre}.",
+    "title": "Default Payload"
+  }
 
 function interpolate(template, objarr) {
     str = template;
@@ -15,9 +41,51 @@ function interpolate(template, objarr) {
     return str;
 }
 
-  chrome.storage.local.get(["config"])
-  .then(data => {
-    let jsonString = JSON.parse(data.config);
+function injectDefaultDataConfig() {
+    chrome.storage.local.set({'config': defaultPayload}, function() {
+        chrome.storage.local.get(["config"])
+        .then(data => {
+          initializeHTMLDOMElements(data);
+        })
+        .catch(error => console.error(error));        
+        //alert("Default Configuration Populated!");
+
+    });
+    
+    return new Promise((resolve, reject) => {  
+        // Resolve the promise with the data
+        resolve(chrome.storage.local.get('config'));
+      });
+}
+
+function injectDefaultDataRecipes() {
+    rPayload = [];
+    rPayload.push(defaultPayload);
+    chrome.storage.local.set({'recipes': rPayload}, function() {
+        //alert("Default Recipe Populated!");
+    });
+    
+    return new Promise((resolve, reject) => {  
+        // Resolve the promise with the data
+        resolve(chrome.storage.local.get('config'));
+      });
+}
+
+function initializeHTMLDOMElements(data) {
+    isEmpty = typeof data.config === "undefined";
+    if (!isEmpty) {
+        // Try to parse the data.config variable
+        //let jsonString = JSON.parse(data.config);
+        jsonString = data.config;
+        // Do something with the jsonString
+        console.log(jsonString);
+      } else {
+        // Inject some data into localstorage
+        injectDefaultDataConfig().then(data => {
+            let jsonString = data.config;
+        });       
+      }
+    
     document.getElementById("apptitle").innerText = document.getElementById("apptitle").innerText + jsonString.title;
     document.getElementById("appinstructions").innerText = document.getElementById("appinstructions").innerText + jsonString.instructions;
     jsonString.prompt_fields.forEach((key) => {
@@ -32,6 +100,27 @@ function interpolate(template, objarr) {
     }
     // data variable is in JSON format
     payload = jsonString;
+}
+
+function initializeRecipeData(data) {
+    isEmpty = typeof data.recipes === "undefined";
+    if (!isEmpty) {
+        // Do Nothing
+    } else {
+        // Inject some data into localstorage
+        injectDefaultDataRecipes();       
+    }
+}
+
+chrome.storage.local.get(["recipes"])
+.then(data => {
+    initializeRecipeData(data);
+})
+.catch(error => console.error(error));
+
+  chrome.storage.local.get(["config"])
+  .then(data => {
+    initializeHTMLDOMElements(data);
   })
   .catch(error => console.error(error));
 

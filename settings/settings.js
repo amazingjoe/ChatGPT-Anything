@@ -11,24 +11,30 @@ var myCodeMirror = CodeMirror(mcm, {
   var container = myCodeMirror.getWrapperElement().parentNode;
   myCodeMirror.setSize(container.clientWidth, container.clientHeight);
 
-defaultPayload = {
-  "continue": false,
-  "instructions": "Replace with instructions",
-  "prompt_fields": [
-    {
-      "field_label": "Field 1",
-      "field_name": "field1",
-      "field_type": "text"
-    },
-    {
-      "field_label": "Field 2",
-      "field_name": "field2",
-      "field_type": "text"
-    }
-  ],
-  "template": "Enter any prompt you want. You can use field values such as ${field1} and ${field2}",
-  "title": "Enter a Title"
-}
+  defaultPayload = {
+    "continue": false,
+    "instructions": "Replace with your instructions",
+    "prompt_fields": [
+      {
+        "field_label": "Story Summary",
+        "field_name": "summary",
+        "field_type": "textarea"
+      },
+      {
+        "field_label": "Main Chracters Name",
+        "field_name": "name",
+        "field_type": "text"
+      },
+      {
+        "field_label": "Genre of Story",
+        "field_name": "genre",
+        "field_type": "select",
+        "field_choices": ["Fairy Tale", "Mystery", "Horror", "Contemporary Fiction"]
+      }
+    ],
+    "template": "This is a generic prompt to be replaced. Tell me about a story about ${summary}. The main characters name is ${name}. The Genre of the Story is ${genre}.",
+    "title": "Default Payload"
+  }
 
 var selectedPayload = {};
 container = null;
@@ -36,13 +42,14 @@ container = null;
 const chooser = document.getElementById("chooser");
 
 chooser.addEventListener('change', function handleChange(event) {
-grabJSONPayloadByName(event.target.value);
+  grabJSONPayloadByName(event.target.value);
 });
 
 function getDefaultConfigValue() {
   return chrome.storage.local.get(["config"])
     .then(data => {
-      const myTitle = JSON.parse(data.config).title;
+      //const myTitle = JSON.parse(data.config).title;
+      const myTitle = data.config.title;
       console.log("Inner Title: " + myTitle);
       return myTitle;
     })
@@ -63,6 +70,7 @@ getDefaultConfigValue().then(myTitle => {
           option.selected = true;
         chooser.appendChild(option);
     });
+    console.log("Number of local storage options is " + values.length);
     chooser.dispatchEvent(new Event("change"));
   });
 });
@@ -73,7 +81,7 @@ document.getElementById("btn_configure").addEventListener("click", function(){
 });
 
 document.getElementById("btn_set").addEventListener("click", function(){
-  selectedPayload = myCodeMirror.getValue();
+  selectedPayload = JSON.parse(myCodeMirror.getValue());
   chrome.storage.local.set({'config': selectedPayload}, function() {
     alert("Configuration Updated");
   });    
@@ -85,8 +93,8 @@ document.getElementById("btn_delete").addEventListener("click", function(){
 });
 
 document.getElementById("btn_reset").addEventListener("click", function(){
-  chooser.value="Enter a Title";
-  chooser.dispatchEvent(new Event("change"));
+  selectedPayload = JSON.stringify(defaultPayload,null,2);
+  updateConfigBox(selectedPayload);
 });
 
 
@@ -116,7 +124,9 @@ function saveJSON(jsonpayload) {
     chrome.storage.local.set({'recipes': records}, function() {
       alert("Data Saved");
     });    
-
+    location.reload(false);
+    chooser.value=jptitle;
+    chooser.dispatchEvent(new Event("change"));    
     console.log(records);
   });  
 
