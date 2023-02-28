@@ -149,8 +149,8 @@ function createElement (datarow) {
 
     // If select field
     if (datarow.field_type == "select") {
-        inputWrap.classList.add("select");
         input = document.createElement("select");
+        input.classList.add("select");
         input.id = datarow.field_name;
         datarow.field_choices.forEach((key) => {
             option = document.createElement("option");
